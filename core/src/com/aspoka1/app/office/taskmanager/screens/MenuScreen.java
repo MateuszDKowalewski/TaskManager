@@ -1,6 +1,7 @@
 package com.aspoka1.app.office.taskmanager.screens;
 
 import com.aspoka1.app.office.taskmanager.TaskManager;
+import com.aspoka1.app.office.taskmanager.tiles.TaskTile;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -15,6 +16,11 @@ public class MenuScreen implements Screen, InputProcessor {
 
 	private Sprite background;
 
+	TaskTile taskTile1;
+	TaskTile taskTile2;
+	TaskTile taskTile3;
+	TaskTile taskTile4;
+
 	public MenuScreen(TaskManager app) {
 		this.app = app;
 
@@ -22,6 +28,11 @@ public class MenuScreen implements Screen, InputProcessor {
 		camera.setToOrtho(false, TaskManager.WIDTH, TaskManager.HEIGHT);
 
 		background = new Sprite(new Texture("Menu.png"));
+		
+		taskTile1 = new TaskTile(25, 420);
+		taskTile2 = new TaskTile(25, 270);
+		taskTile3 = new TaskTile(25, 120);
+		taskTile4 = new TaskTile(25, -30);
 	}
 
 	@Override
@@ -33,6 +44,10 @@ public class MenuScreen implements Screen, InputProcessor {
 		app.batch.setProjectionMatrix(camera.combined);
 		app.batch.begin();
 
+		taskTile1.render(app.batch);
+		taskTile2.render(app.batch);
+		taskTile3.render(app.batch);
+		taskTile4.render(app.batch);
 		background.draw(app.batch);
 		
 		app.batch.end();

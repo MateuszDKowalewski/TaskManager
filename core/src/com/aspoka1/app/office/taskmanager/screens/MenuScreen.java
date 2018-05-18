@@ -6,32 +6,34 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class MenuScreen implements Screen, InputProcessor {
 	private final TaskManager app;
 	private OrthographicCamera camera;
+
+	private Sprite background;
 
 	public MenuScreen(TaskManager app) {
 		this.app = app;
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, TaskManager.WIDTH, TaskManager.HEIGHT);
-	}
 
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-
+		background = new Sprite(new Texture("Menu.png"));
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0f, 0f, 1f, 1);
+		Gdx.gl.glClearColor(1f, 1f, 1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
 		app.batch.setProjectionMatrix(camera.combined);
 		app.batch.begin();
+
+		background.draw(app.batch);
 		
 		app.batch.end();
 	}
@@ -60,9 +62,15 @@ public class MenuScreen implements Screen, InputProcessor {
 
 	}
 
-	////////////////////////
+	/////////////////////////
 	//// NEEDLESS METHODS////
-	////////////////////////
+	/////////////////////////
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+
+	}
 
 	@Override
 	public void pause() {

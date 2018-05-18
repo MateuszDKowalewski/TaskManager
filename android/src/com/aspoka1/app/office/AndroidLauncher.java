@@ -2,9 +2,9 @@ package com.aspoka1.app.office;
 
 import android.os.Bundle;
 
+import com.aspoka1.app.office.taskmanager.TaskManager;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.aspoka1.app.office.TaskManager;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

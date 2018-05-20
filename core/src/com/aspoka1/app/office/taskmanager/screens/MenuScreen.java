@@ -1,15 +1,16 @@
 package com.aspoka1.app.office.taskmanager.screens;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.aspoka1.app.office.taskmanager.TaskManager;
 import com.aspoka1.app.office.taskmanager.services.InputTransform;
 import com.aspoka1.app.office.taskmanager.tiles.TaskTile;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
@@ -21,10 +22,7 @@ public class MenuScreen implements Screen, GestureListener {
 
 	private Sprite background;
 
-	TaskTile taskTile1;
-	TaskTile taskTile2;
-	TaskTile taskTile3;
-	TaskTile taskTile4;
+	List<TaskTile> tiles = new ArrayList<TaskTile>();
 
 	public MenuScreen(TaskManager app) {
 		this.app = app;
@@ -34,11 +32,10 @@ public class MenuScreen implements Screen, GestureListener {
 
 		background = new Sprite(new Texture("Menu.png"));
 
-		taskTile1 = new TaskTile(25, 475);
-		taskTile2 = new TaskTile(25, 325);
-		taskTile3 = new TaskTile(25, 175);
-		taskTile4 = new TaskTile(25, 25);
-
+		for(int i = 0; i < 6; i++){
+			tiles.add(new TaskTile(25, 475 - i * 150));
+		}
+		
 		GestureDetector gd = new GestureDetector(this);
 		Gdx.input.setInputProcessor(gd);
 	}
@@ -52,10 +49,10 @@ public class MenuScreen implements Screen, GestureListener {
 		app.batch.setProjectionMatrix(camera.combined);
 		app.batch.begin();
 
-		taskTile1.render(app.batch);
-		taskTile2.render(app.batch);
-		taskTile3.render(app.batch);
-		taskTile4.render(app.batch);
+		for(int i = 0; i < tiles.size(); i++){
+			tiles.get(i).render(app.batch);
+		}
+		
 		background.draw(app.batch);
 
 		app.batch.end();

@@ -29,10 +29,10 @@ public class MenuScreen implements Screen, InputProcessor {
 
 		background = new Sprite(new Texture("Menu.png"));
 		
-		taskTile1 = new TaskTile(25, 420);
-		taskTile2 = new TaskTile(25, 270);
-		taskTile3 = new TaskTile(25, 120);
-		taskTile4 = new TaskTile(25, -30);
+		taskTile1 = new TaskTile(25, 475);
+		taskTile2 = new TaskTile(25, 325);
+		taskTile3 = new TaskTile(25, 175);
+		taskTile4 = new TaskTile(25, 25);
 	}
 
 	@Override

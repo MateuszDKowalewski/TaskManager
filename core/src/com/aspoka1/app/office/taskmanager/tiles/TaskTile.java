@@ -9,10 +9,14 @@ public class TaskTile extends Rectangle{
 
 	Texture texture;
 	
-	public TaskTile(int x, int y) {
+	public TaskTile(float x, float y) {
 		super(x, y, 430, 150);
 		
 		texture = new Texture("ExampleTaskTile.png");
+	}
+	
+	public void scroll(float y){
+		this.y += y;
 	}
 	
 	public void render(SpriteBatch batch){

@@ -15,15 +15,13 @@ public class TaskTile extends Rectangle {
 	private String title;
 	private String date;
 
-	private static BitmapFont latoFont;
-	Texture texture;
+	private static BitmapFont latoFont = new BitmapFont(Gdx.files.internal("fonts/lato.fnt"));
+	private static Texture texture = new Texture("ExampleTaskTile.png");
 
 	public TaskTile(float x, float y, String title, LocalDate date) {
 		super(x, y, 430, 150);
 		this.title = title;
 		this.date = StringServices.dateToString(date);
-		latoFont = new BitmapFont(Gdx.files.internal("fonts/lato.fnt"));
-		texture = new Texture("ExampleTaskTile.png");
 	}
 
 	public void scroll(float y) {

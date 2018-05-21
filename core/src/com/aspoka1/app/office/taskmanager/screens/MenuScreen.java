@@ -16,7 +16,7 @@ public class MenuScreen extends AbstractScreen {
 	private final TaskManager app;
 	private OrthographicCamera camera;
 
-	private Sprite background;
+	private static Sprite background = new Sprite(new Texture("Menu.png"));
 
 	private Rectangle tilesSpace;
 	private TaskTile [] tasks;
@@ -27,8 +27,6 @@ public class MenuScreen extends AbstractScreen {
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, TaskManager.WIDTH, TaskManager.HEIGHT);
-
-		background = new Sprite(new Texture("Menu.png"));
 
 		tilesSpace = new Rectangle(25, 25, 430, 600);
 		amountOfTasks = app.getTasksSize();

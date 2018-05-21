@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 public abstract class AbstractButton extends Rectangle{
 	private static final long serialVersionUID = 1L;
 	
-	private Texture texture = new Texture("ExampleTaskTile.png");
+	private Texture texture;
 	
 	public AbstractButton(float x, float y, Texture texture) {
 		this.x = x;

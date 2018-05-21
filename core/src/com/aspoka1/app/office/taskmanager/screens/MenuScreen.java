@@ -83,8 +83,8 @@ public class MenuScreen extends AbstractScreen {
 
 	@Override
 	public boolean longPress(float screenX, float screenY) {
-		float x = InputTransform.getCursorToModelX(screenX);
-		float y = InputTransform.getCursorToModelY(screenY);
+		//float x = InputTransform.getCursorToModelX(screenX);
+		//float y = InputTransform.getCursorToModelY(screenY);
 
 		return false;
 	}

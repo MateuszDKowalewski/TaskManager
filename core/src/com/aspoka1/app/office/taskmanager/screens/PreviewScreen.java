@@ -1,8 +1,10 @@
 package com.aspoka1.app.office.taskmanager.screens;
 
 import com.aspoka1.app.office.taskmanager.TaskManager;
+import com.aspoka1.app.office.taskmanager.services.InputTransform;
 import com.aspoka1.app.office.taskmanager.services.StringServices;
 import com.aspoka1.app.office.taskmanager.tasks.Task;
+import com.aspoka1.app.office.taskmanager.ui.MenuButton;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -24,6 +26,8 @@ public class PreviewScreen extends AbstractScreen {
 	private static Sprite background = new Sprite(new Texture("screens/PreviewScreen.png"));
 	private static BitmapFont latoFont = new BitmapFont(Gdx.files.internal("fonts/lato.fnt"));
 	private static BitmapFont lobsterFont = new BitmapFont(Gdx.files.internal("fonts/lobster.fnt"));
+	
+	private MenuButton menu;
 
 	public PreviewScreen(TaskManager app, int taskId, Task task) {
 		this.app = app;
@@ -37,6 +41,8 @@ public class PreviewScreen extends AbstractScreen {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, TaskManager.WIDTH, TaskManager.HEIGHT);
 
+		menu = new MenuButton(25, 500);
+		
 		GestureDetector gd = new GestureDetector(this);
 		Gdx.input.setInputProcessor(gd);
 	}
@@ -54,7 +60,8 @@ public class PreviewScreen extends AbstractScreen {
 		lobsterFont.draw(app.batch, title, 25, 730, 420, 80, true);
 		latoFont.draw(app.batch, date, 25, 615, 420, 30, true);
 		latoFont.draw(app.batch, description, 25, 470, 420, 100, true);
-
+		menu.render(app.batch);
+		
 		app.batch.end();
 	}
 
@@ -65,8 +72,11 @@ public class PreviewScreen extends AbstractScreen {
 	}
 
 	@Override
-	public boolean tap(float x, float y, int count, int button) {
-		// TODO Auto-generated method stub
+	public boolean tap(float screenX, float screenY, int count, int button) {
+		float x = InputTransform.getCursorToModelX(screenX);
+		float y = InputTransform.getCursorToModelY(screenY);
+		menu.isClicked(app, x, y);
+		
 		return false;
 	}
 }

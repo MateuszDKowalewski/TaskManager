@@ -4,6 +4,7 @@ import com.aspoka1.app.office.taskmanager.TaskManager;
 import com.aspoka1.app.office.taskmanager.services.InputTransform;
 import com.aspoka1.app.office.taskmanager.tasks.Task;
 import com.aspoka1.app.office.taskmanager.tasks.TaskTile;
+import com.aspoka1.app.office.taskmanager.ui.AddTaskButton;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,11 +17,13 @@ public class MenuScreen extends AbstractScreen {
 	private final TaskManager app;
 	private OrthographicCamera camera;
 
-	private static Sprite background = new Sprite(new Texture("Menu.png"));
+	private static Sprite background = new Sprite(new Texture("screens/MenuScreen.png"));
 
 	private Rectangle tilesSpace;
 	private TaskTile [] tasks;
 	private int amountOfTasks;
+	
+	public AddTaskButton addTask;
 	
 	public MenuScreen(TaskManager app) {
 		this.app = app;
@@ -36,6 +39,8 @@ public class MenuScreen extends AbstractScreen {
 			task = app.getTask(i);
 			tasks[i] = new TaskTile(25, 475 - i * 150, task.getTitle(), task.getEndDate());
 		}
+		
+		addTask = new AddTaskButton(391, 655);
 
 		GestureDetector gd = new GestureDetector(this);
 		Gdx.input.setInputProcessor(gd);
@@ -55,6 +60,7 @@ public class MenuScreen extends AbstractScreen {
 		}
 
 		background.draw(app.batch);
+		addTask.render(app.batch);
 
 		app.batch.end();
 	}
@@ -69,6 +75,8 @@ public class MenuScreen extends AbstractScreen {
 	public boolean tap(float screenX, float screenY, int count, int button) {
 		float x = InputTransform.getCursorToModelX(screenX);
 		float y = InputTransform.getCursorToModelY(screenY);
+		
+		addTask.isClicked(app, x, y);
 		
 		if(tilesSpace.contains(x, y)){
 			for(int i = 0;  i < amountOfTasks; i++){

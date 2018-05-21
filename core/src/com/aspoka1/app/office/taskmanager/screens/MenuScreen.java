@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.aspoka1.app.office.taskmanager.TaskManager;
 import com.aspoka1.app.office.taskmanager.services.InputTransform;
+import com.aspoka1.app.office.taskmanager.tasks.Task;
 import com.aspoka1.app.office.taskmanager.tasks.TaskTile;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -25,8 +26,9 @@ public class MenuScreen implements Screen, GestureListener {
 	private Sprite background;
 
 	private Rectangle tilesSpace;
-	List<TaskTile> tiles = new ArrayList<TaskTile>();
-
+	private TaskTile [] tasks;
+	private int amountOfTasks;
+	
 	public MenuScreen(TaskManager app) {
 		this.app = app;
 
@@ -36,8 +38,12 @@ public class MenuScreen implements Screen, GestureListener {
 		background = new Sprite(new Texture("Menu.png"));
 
 		tilesSpace = new Rectangle(25, 25, 430, 600);
-		for (int i = 0; i < 7; i++) {
-			tiles.add(new TaskTile(25, 475 - i * 150));
+		amountOfTasks = app.getTasksSize();
+		tasks = new TaskTile[amountOfTasks];
+		Task task;
+		for (int i = 0; i < amountOfTasks; i++) {
+			task = app.getTask(i);
+			tasks[i] = new TaskTile(25, 475 - i * 150, task.getTitle(), task.getEndDate());
 		}
 
 		GestureDetector gd = new GestureDetector(this);
@@ -53,8 +59,8 @@ public class MenuScreen implements Screen, GestureListener {
 		app.batch.setProjectionMatrix(camera.combined);
 		app.batch.begin();
 
-		for (int i = 0; i < tiles.size(); i++) {
-			tiles.get(i).render(app.batch);
+		for (int i = 0; i < amountOfTasks; i++) {
+			tasks[i].render(app.batch);
 		}
 
 		background.draw(app.batch);
@@ -93,26 +99,26 @@ public class MenuScreen implements Screen, GestureListener {
 
 		if (tilesSpace.contains(x, y)) {
 			if (deltaY > 0) {
-				if (tiles.get(tiles.size() - 1).y < 25) {
-					for (int i = 0; i < tiles.size(); i++) {
-						tiles.get(i).scroll(deltaY);
+				if (tasks[amountOfTasks - 1].y < 25) {
+					for (int i = 0; i < amountOfTasks; i++) {
+						tasks[i].scroll(deltaY);
 					}
-					if (tiles.get(tiles.size() - 1).y > 25) {
-						float delta = 25 - tiles.get(tiles.size() - 1).y;
-						for (int i = 0; i < tiles.size(); i++) {
-							tiles.get(i).scroll(delta);
+					if (tasks[amountOfTasks - 1].y > 25) {
+						float delta = 25 - tasks[amountOfTasks - 1].y;
+						for (int i = 0; i < amountOfTasks; i++) {
+							tasks[i].scroll(delta);
 						}
 					}
 				}
 			} else if (deltaY < 0) {
-				if (tiles.get(0).y > 475) {
-					for (int i = 0; i < tiles.size(); i++) {
-						tiles.get(i).scroll(deltaY);
+				if (tasks[0].y > 475) {
+					for (int i = 0; i < amountOfTasks; i++) {
+						tasks[i].scroll(deltaY);
 					}
-					if (tiles.get(0).y < 475) {
-						float delta = 475 - tiles.get(0).y;
-						for (int i = 0; i < tiles.size(); i++) {
-							tiles.get(i).scroll(delta);
+					if (tasks[0].y < 475) {
+						float delta = 475 - tasks[0].y;
+						for (int i = 0; i < amountOfTasks; i++) {
+							tasks[i].scroll(delta);
 						}
 					}
 				}

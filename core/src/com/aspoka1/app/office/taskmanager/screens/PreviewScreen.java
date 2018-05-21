@@ -4,6 +4,7 @@ import com.aspoka1.app.office.taskmanager.TaskManager;
 import com.aspoka1.app.office.taskmanager.services.InputTransform;
 import com.aspoka1.app.office.taskmanager.services.StringServices;
 import com.aspoka1.app.office.taskmanager.tasks.Task;
+import com.aspoka1.app.office.taskmanager.ui.DoneButton;
 import com.aspoka1.app.office.taskmanager.ui.MenuButton;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -21,13 +22,13 @@ public class PreviewScreen extends AbstractScreen {
 	private String title;
 	private String date;
 	private String description;
-	private boolean done;
 
 	private static Sprite background = new Sprite(new Texture("screens/PreviewScreen.png"));
 	private static BitmapFont latoFont = new BitmapFont(Gdx.files.internal("fonts/lato.fnt"));
 	private static BitmapFont lobsterFont = new BitmapFont(Gdx.files.internal("fonts/lobster.fnt"));
 	
 	private MenuButton menu;
+	private DoneButton doneButton;
 
 	public PreviewScreen(TaskManager app, int taskId, Task task) {
 		this.app = app;
@@ -36,12 +37,12 @@ public class PreviewScreen extends AbstractScreen {
 		date = "from " + StringServices.dateToString(task.getStartDate()) + " to "
 				+ StringServices.dateToString(task.getEndDate());
 		description = task.getDescription();
-		done = task.isDone();
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, TaskManager.WIDTH, TaskManager.HEIGHT);
 
 		menu = new MenuButton(25, 500);
+		doneButton = new DoneButton(391, 500, taskId, app);
 		
 		GestureDetector gd = new GestureDetector(this);
 		Gdx.input.setInputProcessor(gd);
@@ -61,6 +62,7 @@ public class PreviewScreen extends AbstractScreen {
 		latoFont.draw(app.batch, date, 25, 615, 420, 30, true);
 		latoFont.draw(app.batch, description, 25, 470, 420, 100, true);
 		menu.render(app.batch);
+		doneButton.render(app.batch);
 		
 		app.batch.end();
 	}
@@ -76,6 +78,7 @@ public class PreviewScreen extends AbstractScreen {
 		float x = InputTransform.getCursorToModelX(screenX);
 		float y = InputTransform.getCursorToModelY(screenY);
 		menu.isClicked(app, x, y);
+		doneButton.isClicked(app, x, y, taskId);
 		
 		return false;
 	}

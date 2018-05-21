@@ -1,4 +1,4 @@
-package com.aspoka1.app.office.taskmanager.taska;
+package com.aspoka1.app.office.taskmanager.tasks;
 
 import java.time.LocalDate;
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.aspoka1.app.office.taskmanager.TaskManager;
 import com.aspoka1.app.office.taskmanager.services.InputTransform;
-import com.aspoka1.app.office.taskmanager.taska.TaskTile;
+import com.aspoka1.app.office.taskmanager.tasks.TaskTile;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;

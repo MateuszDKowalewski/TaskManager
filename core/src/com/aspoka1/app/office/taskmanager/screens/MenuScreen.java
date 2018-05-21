@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.aspoka1.app.office.taskmanager.TaskManager;
 import com.aspoka1.app.office.taskmanager.services.InputTransform;
-import com.aspoka1.app.office.taskmanager.tiles.TaskTile;
+import com.aspoka1.app.office.taskmanager.taska.TaskTile;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -36,7 +36,7 @@ public class MenuScreen implements Screen, GestureListener {
 		background = new Sprite(new Texture("Menu.png"));
 
 		tilesSpace = new Rectangle(25, 25, 430, 600);
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 7; i++) {
 			tiles.add(new TaskTile(25, 475 - i * 150));
 		}
 

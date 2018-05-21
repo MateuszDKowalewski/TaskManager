@@ -1,7 +1,6 @@
 package com.aspoka1.app.office.taskmanager.tiles;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,7 +23,7 @@ public class TaskTile extends Rectangle {
 
 	public TaskTile(float x, float y) {
 		super(x, y, 430, 150);
-		title = "Example task title";
+		title = "Example task title Example task title";
 		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquam urna enim, eget accumsan diam facilisis vel. Etiam vehicula ante.";
 		startDate = LocalDate.now();
 		endDate = LocalDate.now();
@@ -51,6 +50,7 @@ public class TaskTile extends Rectangle {
 	public void render(SpriteBatch batch) {
 		batch.draw(texture, x, y);
 		latoFont.draw(batch, endDateString, x + 270, y + 115);
+		latoFont.draw(batch, title, x + 10, y + 125, 250, 100, true);
 	}
 
 	private void setupFonts() {
@@ -59,14 +59,14 @@ public class TaskTile extends Rectangle {
 
 	private void setupStrings() {
 		String year, month, day;
-		
+
 		year = Integer.toString(endDate.getYear());
 		month = Integer.toString(endDate.getMonthValue());
 		day = Integer.toString(endDate.getDayOfMonth());
 		month = (month.length() == 1) ? (month = '0' + month) : month;
 		day = (day.length() == 1) ? (day = '0' + day) : day;
 		endDateString = day + ':' + month + ':' + year;
-		
+
 		year = Integer.toString(startDate.getYear());
 		month = Integer.toString(startDate.getMonthValue());
 		day = Integer.toString(startDate.getDayOfMonth());

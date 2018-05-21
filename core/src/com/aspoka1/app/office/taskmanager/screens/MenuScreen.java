@@ -11,6 +11,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
@@ -35,10 +36,10 @@ public class MenuScreen implements Screen, GestureListener {
 		background = new Sprite(new Texture("Menu.png"));
 
 		tilesSpace = new Rectangle(25, 25, 430, 600);
-		for(int i = 0; i < 6; i++){
+		for (int i = 0; i < 1; i++) {
 			tiles.add(new TaskTile(25, 475 - i * 150));
 		}
-		
+
 		GestureDetector gd = new GestureDetector(this);
 		Gdx.input.setInputProcessor(gd);
 	}
@@ -52,10 +53,10 @@ public class MenuScreen implements Screen, GestureListener {
 		app.batch.setProjectionMatrix(camera.combined);
 		app.batch.begin();
 
-		for(int i = 0; i < tiles.size(); i++){
+		for (int i = 0; i < tiles.size(); i++) {
 			tiles.get(i).render(app.batch);
 		}
-		
+
 		background.draw(app.batch);
 
 		app.batch.end();
@@ -87,43 +88,43 @@ public class MenuScreen implements Screen, GestureListener {
 	public boolean pan(float screenX, float screenY, float screenDeltaX, float screenDeltaY) {
 		float x = InputTransform.getCursorToModelX(screenX);
 		float y = InputTransform.getCursorToModelY(screenY);
-		//float deltaX = InputTransform.getDeltaX(screenDeltaX);
+		// float deltaX = InputTransform.getDeltaX(screenDeltaX);
 		float deltaY = InputTransform.getDeltaY(screenDeltaY);
 
-		if(tilesSpace.contains(x, y)){
-			if(deltaY > 0){
-				if(tiles.get(tiles.size() - 1).y < 25){
-					for(int i = 0; i < tiles.size(); i++){
+		if (tilesSpace.contains(x, y)) {
+			if (deltaY > 0) {
+				if (tiles.get(tiles.size() - 1).y < 25) {
+					for (int i = 0; i < tiles.size(); i++) {
 						tiles.get(i).scroll(deltaY);
 					}
-					if(tiles.get(tiles.size() - 1).y > 25){
+					if (tiles.get(tiles.size() - 1).y > 25) {
 						float delta = 25 - tiles.get(tiles.size() - 1).y;
-						for(int i = 0; i < tiles.size(); i++){
+						for (int i = 0; i < tiles.size(); i++) {
 							tiles.get(i).scroll(delta);
 						}
 					}
 				}
-			}else if(deltaY < 0){
-				if(tiles.get(0).y > 475){
-					for(int i = 0; i < tiles.size(); i++){
+			} else if (deltaY < 0) {
+				if (tiles.get(0).y > 475) {
+					for (int i = 0; i < tiles.size(); i++) {
 						tiles.get(i).scroll(deltaY);
 					}
-					if(tiles.get(0).y < 475){
+					if (tiles.get(0).y < 475) {
 						float delta = 475 - tiles.get(0).y;
-						for(int i = 0; i < tiles.size(); i++){
+						for (int i = 0; i < tiles.size(); i++) {
 							tiles.get(i).scroll(delta);
 						}
 					}
 				}
 			}
 		}
-		
+
 		return false;
 	}
 
-	//////////////////////////
-	///// NEEDLESS METHODS/////
-	//////////////////////////
+	//////////////////////////////
+	////// NEEDLESS METHODS///////
+	//////////////////////////////
 
 	@Override
 	public boolean touchDown(float x, float y, int pointer, int button) {

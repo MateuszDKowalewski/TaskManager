@@ -13,13 +13,11 @@ public class TaskManager extends Game {
 	
 	public SpriteBatch batch;
 	public ShapeRenderer render;
-	public BitmapFont font;
 
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
 		render = new ShapeRenderer();
-		font = new BitmapFont();
 		
 		this.screen = new MenuScreen(this);
 	}
@@ -33,6 +31,5 @@ public class TaskManager extends Game {
 	public void dispose() {
 		batch.dispose();
 		render.dispose();
-		font.dispose();
 	}
 }

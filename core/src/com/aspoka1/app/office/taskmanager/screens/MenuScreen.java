@@ -1,25 +1,18 @@
 package com.aspoka1.app.office.taskmanager.screens;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.aspoka1.app.office.taskmanager.TaskManager;
 import com.aspoka1.app.office.taskmanager.services.InputTransform;
 import com.aspoka1.app.office.taskmanager.tasks.Task;
 import com.aspoka1.app.office.taskmanager.tasks.TaskTile;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
-public class MenuScreen implements Screen, GestureListener {
+public class MenuScreen extends AbstractScreen {
 	private final TaskManager app;
 	private OrthographicCamera camera;
 
@@ -78,6 +71,14 @@ public class MenuScreen implements Screen, GestureListener {
 	public boolean tap(float screenX, float screenY, int count, int button) {
 		float x = InputTransform.getCursorToModelX(screenX);
 		float y = InputTransform.getCursorToModelY(screenY);
+		
+		if(tilesSpace.contains(x, y)){
+			for(int i = 0;  i < amountOfTasks; i++){
+				if(tasks[i].contains(x, y)){
+					System.out.println(i);
+				}
+			}
+		}
 
 		return false;
 	}
@@ -126,76 +127,6 @@ public class MenuScreen implements Screen, GestureListener {
 		}
 
 		return false;
-	}
-
-	//////////////////////////////
-	////// NEEDLESS METHODS///////
-	//////////////////////////////
-
-	@Override
-	public boolean touchDown(float x, float y, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean fling(float velocityX, float velocityY, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean panStop(float x, float y, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean zoom(float initialDistance, float distance) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void pinchStop() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

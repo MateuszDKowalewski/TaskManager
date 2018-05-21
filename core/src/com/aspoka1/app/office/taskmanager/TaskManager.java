@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.aspoka1.app.office.taskmanager.screens.MenuScreen;
 import com.aspoka1.app.office.taskmanager.tasks.Task;
-import com.aspoka1.app.office.taskmanager.tasks.TaskTile;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;

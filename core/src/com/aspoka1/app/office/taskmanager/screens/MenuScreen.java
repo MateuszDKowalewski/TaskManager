@@ -75,7 +75,7 @@ public class MenuScreen extends AbstractScreen {
 		if(tilesSpace.contains(x, y)){
 			for(int i = 0;  i < amountOfTasks; i++){
 				if(tasks[i].contains(x, y)){
-					System.out.println(i);
+					app.setScreen(new PreviewScreen(app, i, app.getTask(i)));
 				}
 			}
 		}

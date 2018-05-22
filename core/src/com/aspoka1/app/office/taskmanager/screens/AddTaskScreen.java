@@ -3,6 +3,8 @@ package com.aspoka1.app.office.taskmanager.screens;
 import java.time.LocalDate;
 
 import com.aspoka1.app.office.taskmanager.TaskManager;
+import com.aspoka1.app.office.taskmanager.services.DataServices;
+import com.aspoka1.app.office.taskmanager.services.InputTransform;
 import com.aspoka1.app.office.taskmanager.ui.TextInputListinner;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.TextInputListener;
@@ -11,39 +13,53 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.Rectangle;
 
-public class AddTaskScreen extends AbstractScreen{
+public class AddTaskScreen extends AbstractScreen {
 	private TaskManager app;
 	private OrthographicCamera camera;
 
 	private static Sprite background = new Sprite(new Texture("screens/AddTaskScreen.png"));
 	private static BitmapFont latoFont = new BitmapFont(Gdx.files.internal("fonts/lato.fnt"));
 	private static BitmapFont lobsterFont = new BitmapFont(Gdx.files.internal("fonts/lobster.fnt"));
-	
-	private TextInputListener listener = new TextInputListinner();
-	
+
+	private TextInputListener listener = new TextInputListinner(this);
+
 	private String title;
 	private String description;
 	private String dateText;
 	private LocalDate endDate;
-	
-	private enum LastChange {NONE, TITLE, DATE, DESCRIPTION};
+
+	private Rectangle titleHitBox;
+	private Rectangle dateHitBox;
+	private Rectangle descriptionHitBox;
+
+	private enum LastChange {
+		NONE, TITLE, DATE, DESCRIPTION
+	};
+
 	private LastChange lastChange;
-	
-	public AddTaskScreen(TaskManager app){
+
+	public AddTaskScreen(TaskManager app) {
 		this.app = app;
-		
+
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, TaskManager.WIDTH, TaskManager.HEIGHT);
-		
+
 		title = "Tap to set title. Make it longer";
 		description = "Tap to set description. Make it longer, becouse I want to test multiline description.";
-		dateText = "22:25:2018 - 22:05:2018";//"Tap to set date";
+		dateText = "22:25:2018 - 22:05:2018";// "Tap to set date";
 		lastChange = LastChange.NONE;
-		
-		//Gdx.input.getTextInput(listener, "Dialog Title", "Initial Textfield Value", "Hint Value");
+
+		titleHitBox = new Rectangle(30, 625, 420, 95);
+		dateHitBox = new Rectangle(30, 550, 420, 30);
+		descriptionHitBox = new Rectangle(30, 145, 420, 355);
+
+		GestureDetector gd = new GestureDetector(this);
+		Gdx.input.setInputProcessor(gd);
 	}
-	
+
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(1f, 1f, 1f, 1);
@@ -56,8 +72,56 @@ public class AddTaskScreen extends AbstractScreen{
 		background.draw(app.batch);
 		lobsterFont.draw(app.batch, title, 30, 720, 420, 95, true);
 		latoFont.draw(app.batch, dateText, 30, 580, 420, 30, true);
-		latoFont.draw(app.batch, description, 30, 140 + 360, 420, 355, true);
+		latoFont.draw(app.batch, description, 30, 500, 420, 355, true);
 
 		app.batch.end();
+	}
+
+	public void incommingMessage(String message) {
+		switch (lastChange) {
+		case TITLE:
+			title = message;
+			break;
+
+		case DATE:
+			if(DataServices.isGoodDataFormat(message)){
+				endDate = DataServices.stringToDate(message);
+				dateText = DataServices.dateToString(LocalDate.now()) + " - " + DataServices.dateToString(endDate);
+			}else{
+				Gdx.input.getTextInput(listener, "Wrong data format", "", "dd-mm-yyyy");
+			}
+			break;
+
+		case DESCRIPTION:
+			description = message;
+			break;
+			
+		case NONE:
+			break;
+			
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public boolean tap(float screenX, float screenY, int count, int button) {
+		float x = InputTransform.getCursorToModelX(screenX);
+		float y = InputTransform.getCursorToModelY(screenY);
+
+		if (titleHitBox.contains(x, y)) {
+			lastChange = LastChange.TITLE;
+			Gdx.input.getTextInput(listener, "Write task title", "", "Title");
+		}
+		if (dateHitBox.contains(x, y)) {
+			lastChange = LastChange.DATE;
+			Gdx.input.getTextInput(listener, "Write task end data", "", "dd-mm-yyyy");
+		}
+		if (descriptionHitBox.contains(x, y)) {
+			lastChange = LastChange.DESCRIPTION;
+			Gdx.input.getTextInput(listener, "Write task description", "", "Description");
+		}
+
+		return false;
 	}
 }

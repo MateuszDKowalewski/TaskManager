@@ -38,7 +38,7 @@ public class AddTaskScreen extends AbstractScreen{
 		
 		title = "Tap to set title. Make it longer";
 		description = "Tap to set description. Make it longer, becouse I want to test multiline description.";
-		dateText = "22:25:2018-22:05:2018";//"Tap to set date";
+		dateText = "22:25:2018 - 22:05:2018";//"Tap to set date";
 		lastChange = LastChange.NONE;
 		
 		//Gdx.input.getTextInput(listener, "Dialog Title", "Initial Textfield Value", "Hint Value");
@@ -54,9 +54,9 @@ public class AddTaskScreen extends AbstractScreen{
 		app.batch.begin();
 
 		background.draw(app.batch);
-		lobsterFont.draw(app.batch, title, 30, 725, 420, 85, true);
-		latoFont.draw(app.batch, dateText, 30, 560 + 40, 420, 30, true);
-		latoFont.draw(app.batch, description, 30, 160 + 360, 420, 355, true);
+		lobsterFont.draw(app.batch, title, 30, 720, 420, 95, true);
+		latoFont.draw(app.batch, dateText, 30, 580, 420, 30, true);
+		latoFont.draw(app.batch, description, 30, 140 + 360, 420, 355, true);
 
 		app.batch.end();
 	}

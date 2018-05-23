@@ -42,7 +42,7 @@ public class PreviewScreen extends AbstractScreen {
 		camera.setToOrtho(false, TaskManager.WIDTH, TaskManager.HEIGHT);
 
 		menu = new MenuButton(25, 500);
-		doneButton = new DoneButton(391, 500, taskId, app);
+		doneButton = new DoneButton(391, 500, task.isDone());
 		
 		GestureDetector gd = new GestureDetector(this);
 		Gdx.input.setInputProcessor(gd);

@@ -46,6 +46,10 @@ public class TaskManager extends Game {
 		batch.dispose();
 		render.dispose();
 	}
+	
+	public void changeIsTaskDone(int taskId){
+		memory.changeIsDone(taskId);
+	}
 
 	public void addTask(Task task) {
 		tasks.add(task);

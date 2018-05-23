@@ -49,6 +49,13 @@ public class MemoryService {
 				LocalDate.of(endYear, endMonth, endDay), done);
 	}
 	
+	public void changeIsDone(int i){
+		boolean b = prefs.getBoolean(APP_IS_DONE + Integer.toString(i));
+		b = !b;
+		prefs.putBoolean(APP_IS_DONE + Integer.toString(i), b);
+		prefs.flush();
+	}
+	
 	public void addTask(Task task){
 		int i;
 		i = prefs.getInteger(APP_TASK_AMMOUNT);

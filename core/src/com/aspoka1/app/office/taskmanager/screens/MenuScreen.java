@@ -37,7 +37,7 @@ public class MenuScreen extends AbstractScreen {
 		Task task;
 		for (int i = 0; i < amountOfTasks; i++) {
 			task = app.getTask(i);
-			tasks[i] = new TaskTile(25, 475 - i * 150, task.getTitle(), task.getEndDate());
+			tasks[i] = new TaskTile(25, 475 - i * 150, task.getTitle(), task.getEndDate(), task.isDone());
 		}
 		
 		addTask = new AddTaskButton(391, 655);

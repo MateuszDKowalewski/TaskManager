@@ -14,14 +14,21 @@ public class TaskTile extends Rectangle {
 
 	private String title;
 	private String date;
+	private String done;
 
 	private static BitmapFont latoFont = new BitmapFont(Gdx.files.internal("fonts/lato.fnt"));
-	private static Texture texture = new Texture("ExampleTaskTile.png");
+	private static Texture texture = new Texture("TaskTile.png");
 
-	public TaskTile(float x, float y, String title, LocalDate date) {
+	public TaskTile(float x, float y, String title, LocalDate date, boolean isDone) {
 		super(x, y, 430, 150);
 		this.title = title;
 		this.date = StringServices.dateToString(date);
+		
+		if(isDone){
+			done = "Done";
+		}else{
+			done = "Undone";
+		}
 	}
 
 	public void scroll(float y) {
@@ -32,5 +39,6 @@ public class TaskTile extends Rectangle {
 		batch.draw(texture, x, y);
 		latoFont.draw(batch, date, x + 270, y + 115);
 		latoFont.draw(batch, title, x + 10, y + 125, 250, 100, true);
+		latoFont.draw(batch, done, x + 270, y + 50);
 	}
 }

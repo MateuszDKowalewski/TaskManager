@@ -4,6 +4,7 @@ import com.aspoka1.app.office.taskmanager.TaskManager;
 import com.aspoka1.app.office.taskmanager.services.InputTransform;
 import com.aspoka1.app.office.taskmanager.services.StringServices;
 import com.aspoka1.app.office.taskmanager.tasks.Task;
+import com.aspoka1.app.office.taskmanager.ui.DeleteButton;
 import com.aspoka1.app.office.taskmanager.ui.DoneButton;
 import com.aspoka1.app.office.taskmanager.ui.MenuButton;
 import com.badlogic.gdx.Gdx;
@@ -29,6 +30,7 @@ public class PreviewScreen extends AbstractScreen {
 	
 	private MenuButton menu;
 	private DoneButton doneButton;
+	private DeleteButton delete;
 
 	public PreviewScreen(TaskManager app, int taskId, Task task) {
 		this.app = app;
@@ -43,6 +45,7 @@ public class PreviewScreen extends AbstractScreen {
 
 		menu = new MenuButton(25, 500);
 		doneButton = new DoneButton(391, 500, task.isDone());
+		delete = new DeleteButton(208, 500);
 		
 		GestureDetector gd = new GestureDetector(this);
 		Gdx.input.setInputProcessor(gd);
@@ -63,14 +66,9 @@ public class PreviewScreen extends AbstractScreen {
 		latoFont.draw(app.batch, description, 25, 470, 420, 100, true);
 		menu.render(app.batch);
 		doneButton.render(app.batch);
+		delete.render(app.batch);
 		
 		app.batch.end();
-	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -79,6 +77,11 @@ public class PreviewScreen extends AbstractScreen {
 		float y = InputTransform.getCursorToModelY(screenY);
 		menu.isClicked(app, x, y);
 		doneButton.isClicked(app, x, y, taskId);
+		
+		if(delete.isClicked(x, y)){
+			app.deleteTask(taskId);
+			app.setScreen(new MenuScreen(app));
+		}
 		
 		return false;
 	}

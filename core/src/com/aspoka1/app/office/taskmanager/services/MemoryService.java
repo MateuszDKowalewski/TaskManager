@@ -48,15 +48,15 @@ public class MemoryService {
 		return new Task(title, description, LocalDate.of(startYear, startMonth, startDay),
 				LocalDate.of(endYear, endMonth, endDay), done);
 	}
-	
-	public void changeIsDone(int i){
+
+	public void changeIsDone(int i) {
 		boolean b = prefs.getBoolean(APP_IS_DONE + Integer.toString(i));
 		b = !b;
 		prefs.putBoolean(APP_IS_DONE + Integer.toString(i), b);
 		prefs.flush();
 	}
-	
-	public void addTask(Task task){
+
+	public void addTask(Task task) {
 		int i;
 		i = prefs.getInteger(APP_TASK_AMMOUNT);
 		prefs.putInteger(APP_TASK_AMMOUNT, i + 1);
@@ -87,6 +87,11 @@ public class MemoryService {
 			prefs.putString(APP_DESCRIPTION + Integer.toString(i), task.getDescription());
 			prefs.putBoolean(APP_IS_DONE + Integer.toString(i), task.isDone());
 		}
-		prefs.flush(); 
+		prefs.flush();
+	}
+	
+	public void clear(){
+		prefs.clear();
+		prefs.flush();
 	}
 }

@@ -63,4 +63,10 @@ public class TaskManager extends Game {
 	public int getTasksSize() {
 		return tasks.size();
 	}
+	
+	public void deleteTask(int taskId){
+		tasks.remove(taskId);
+		memory.clear();
+		memory.saveAll(tasks.size());
+	}
 }

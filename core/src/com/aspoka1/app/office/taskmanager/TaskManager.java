@@ -1,6 +1,5 @@
 package com.aspoka1.app.office.taskmanager;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,16 +29,9 @@ public class TaskManager extends Game {
 
 		memory = new MemoryService(this);
 		int amount = memory.getAmmount();
-		//System.out.println(amount);
 		for (int i = 0; i < amount; i++) {
 			tasks.add(memory.getTask(i));
 		}
-
-		//createTasks();
-		//System.out.println(tasks.size());
-		//memory.saveAll(tasks.size());
-		
-		
 
 		this.screen = new MenuScreen(this);
 	}
@@ -57,6 +49,7 @@ public class TaskManager extends Game {
 
 	public void addTask(Task task) {
 		tasks.add(task);
+		memory.addTask(task);
 	}
 
 	public Task getTask(int i) {
@@ -65,28 +58,5 @@ public class TaskManager extends Game {
 
 	public int getTasksSize() {
 		return tasks.size();
-	}
-
-	private void createTasks() {
-		tasks.add(new Task("Task 1", "Thease is the best description on the fucking world nr 1", LocalDate.now(),
-				LocalDate.of(2018, 5, 21), false));
-		tasks.add(new Task("Task 2", "Thease is the best description on the fucking world nr 2", LocalDate.now(),
-				LocalDate.of(2018, 5, 22), false));
-		tasks.add(new Task("Task 3", "Thease is the best description on the fucking world nr 3", LocalDate.now(),
-				LocalDate.of(2018, 5, 23), false));
-		tasks.add(new Task("Task 4", "Thease is the best description on the fucking world nr 4", LocalDate.now(),
-				LocalDate.of(2018, 5, 24), false));
-		tasks.add(new Task("Task 5", "Thease is the best description on the fucking world nr 5", LocalDate.now(),
-				LocalDate.of(2018, 5, 25), false));
-		tasks.add(new Task("Task 6", "Thease is the best description on the fucking world nr 6", LocalDate.now(),
-				LocalDate.of(2018, 5, 26), false));
-		tasks.add(new Task("Task 7", "Thease is the best description on the fucking world nr 7", LocalDate.now(),
-				LocalDate.of(2018, 5, 27), false));
-		tasks.add(new Task("Task 8", "Thease is the best description on the fucking world nr 8", LocalDate.now(),
-				LocalDate.of(2018, 5, 28), false));
-		tasks.add(new Task("Task 9", "Thease is the best description on the fucking world nr 9", LocalDate.now(),
-				LocalDate.of(2018, 5, 29), false));
-		tasks.add(new Task("Task 10", "Thease is the best description on the fucking world nr 10", LocalDate.now(),
-				LocalDate.of(2018, 5, 30), false));
 	}
 }

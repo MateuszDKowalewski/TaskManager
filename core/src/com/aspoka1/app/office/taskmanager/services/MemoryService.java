@@ -29,7 +29,6 @@ public class MemoryService {
 	}
 
 	public int getAmmount() {
-		System.out.println(prefs.getInteger(APP_TASK_AMMOUNT));
 		return prefs.getInteger(APP_TASK_AMMOUNT);
 	}
 
@@ -49,13 +48,27 @@ public class MemoryService {
 		return new Task(title, description, LocalDate.of(startYear, startMonth, startDay),
 				LocalDate.of(endYear, endMonth, endDay), done);
 	}
+	
+	public void addTask(Task task){
+		int i;
+		i = prefs.getInteger(APP_TASK_AMMOUNT);
+		prefs.putInteger(APP_TASK_AMMOUNT, i + 1);
+		prefs.putString(APP_TITLE + Integer.toString(i), task.getTitle());
+		prefs.putInteger(APP_START_DATA_DAY + Integer.toString(i), task.getStartDate().getDayOfMonth());
+		prefs.putInteger(APP_START_DATA_MONTH + Integer.toString(i), task.getStartDate().getMonthValue());
+		prefs.putInteger(APP_START_DATA_YEAR + Integer.toString(i), task.getStartDate().getYear());
+		prefs.putInteger(APP_END_DATA_DAY + Integer.toString(i), task.getEndDate().getDayOfMonth());
+		prefs.putInteger(APP_END_DATA_MONTH + Integer.toString(i), task.getEndDate().getMonthValue());
+		prefs.putInteger(APP_END_DATA_YEAR + Integer.toString(i), task.getEndDate().getYear());
+		prefs.putString(APP_DESCRIPTION + Integer.toString(i), task.getDescription());
+		prefs.putBoolean(APP_IS_DONE + Integer.toString(i), task.isDone());
+		prefs.flush();
+	}
 
 	public void saveAll(int ammount) {
 		prefs.putInteger(APP_TASK_AMMOUNT, ammount);
-		//System.out.println(ammount);
 		Task task;
 		for (int i = 0; i < ammount; i++) {
-			//System.out.println('i');
 			task = app.getTask(i);
 			prefs.putString(APP_TITLE + Integer.toString(i), task.getTitle());
 			prefs.putInteger(APP_START_DATA_DAY + Integer.toString(i), task.getStartDate().getDayOfMonth());
@@ -67,6 +80,6 @@ public class MemoryService {
 			prefs.putString(APP_DESCRIPTION + Integer.toString(i), task.getDescription());
 			prefs.putBoolean(APP_IS_DONE + Integer.toString(i), task.isDone());
 		}
-		prefs.flush();
+		prefs.flush(); 
 	}
 }

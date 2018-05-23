@@ -104,7 +104,7 @@ public class MenuScreen extends AbstractScreen {
 		// float deltaX = InputTransform.getDeltaX(screenDeltaX);
 		float deltaY = InputTransform.getDeltaY(screenDeltaY);
 
-		if (tilesSpace.contains(x, y)) {
+		if ((tilesSpace.contains(x, y)) && (amountOfTasks > 0)) {
 			if (deltaY > 0) {
 				if (tasks[amountOfTasks - 1].y < 25) {
 					for (int i = 0; i < amountOfTasks; i++) {

@@ -41,6 +41,10 @@ public class TaskManager extends Game {
 		render.dispose();
 	}
 	
+	public void addTask(Task task){
+		tasks.add(task);
+	}
+	
 	public Task getTask(int i){
 		return tasks.get(i);
 	}

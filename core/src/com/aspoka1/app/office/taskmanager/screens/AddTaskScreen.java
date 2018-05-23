@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import com.aspoka1.app.office.taskmanager.TaskManager;
 import com.aspoka1.app.office.taskmanager.services.DataServices;
 import com.aspoka1.app.office.taskmanager.services.InputTransform;
+import com.aspoka1.app.office.taskmanager.tasks.Task;
+import com.aspoka1.app.office.taskmanager.ui.MenuButton;
+import com.aspoka1.app.office.taskmanager.ui.SaveTaskButton;
 import com.aspoka1.app.office.taskmanager.ui.TextInputListinner;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.TextInputListener;
@@ -34,6 +37,9 @@ public class AddTaskScreen extends AbstractScreen {
 	private Rectangle titleHitBox;
 	private Rectangle dateHitBox;
 	private Rectangle descriptionHitBox;
+	
+	private MenuButton menuButton;
+	private SaveTaskButton saveButton;
 
 	private enum LastChange {
 		NONE, TITLE, DATE, DESCRIPTION
@@ -55,6 +61,9 @@ public class AddTaskScreen extends AbstractScreen {
 		titleHitBox = new Rectangle(30, 625, 420, 95);
 		dateHitBox = new Rectangle(30, 550, 420, 30);
 		descriptionHitBox = new Rectangle(30, 145, 420, 355);
+		
+		menuButton = new MenuButton(100, 55);
+		saveButton = new SaveTaskButton(316, 55);
 
 		GestureDetector gd = new GestureDetector(this);
 		Gdx.input.setInputProcessor(gd);
@@ -73,6 +82,8 @@ public class AddTaskScreen extends AbstractScreen {
 		lobsterFont.draw(app.batch, title, 30, 720, 420, 95, true);
 		latoFont.draw(app.batch, dateText, 30, 580, 420, 30, true);
 		latoFont.draw(app.batch, description, 30, 500, 420, 355, true);
+		menuButton.render(app.batch);
+		saveButton.render(app.batch);
 
 		app.batch.end();
 	}
@@ -120,6 +131,13 @@ public class AddTaskScreen extends AbstractScreen {
 		if (descriptionHitBox.contains(x, y)) {
 			lastChange = LastChange.DESCRIPTION;
 			Gdx.input.getTextInput(listener, "Write task description", "", "Description");
+		}
+		
+		menuButton.isClicked(app, x, y);
+		
+		if(saveButton.isClicked(x, y)){
+			app.addTask(new Task(title, description, LocalDate.now(), endDate, false));
+			app.setScreen(new MenuScreen(app));
 		}
 
 		return false;

@@ -68,6 +68,15 @@ public class DataServices {
 		day = Integer.toString(date.getDayOfMonth());
 		month = Integer.toString(date.getMonthValue());
 		year = Integer.toString(date.getYear());
+		
+		if(day.length() == 1){
+			day = '0' + day;
+		}
+		
+		if(month.length() == 1){
+			month = '0' + month;
+		}
+		
 		return day + '.' + month + '.' + year;
 	}
 }

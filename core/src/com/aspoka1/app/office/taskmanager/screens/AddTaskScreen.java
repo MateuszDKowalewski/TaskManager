@@ -53,9 +53,9 @@ public class AddTaskScreen extends AbstractScreen {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, TaskManager.WIDTH, TaskManager.HEIGHT);
 
-		title = "Tap to set title. Make it longer";
-		description = "Tap to set description. Make it longer, becouse I want to test multiline description.";
-		dateText = "22:25:2018 - 22:05:2018";// "Tap to set date";
+		title = "Tap to set title.";
+		description = "Tap to set description.";
+		dateText = "Tap to set date";
 		lastChange = LastChange.NONE;
 
 		titleHitBox = new Rectangle(30, 625, 420, 95);
@@ -136,6 +136,9 @@ public class AddTaskScreen extends AbstractScreen {
 		menuButton.isClicked(app, x, y);
 		
 		if(saveButton.isClicked(x, y)){
+			if(dateText == "Tap to set date"){
+				endDate = LocalDate.now();
+			}
 			app.addTask(new Task(title, description, LocalDate.now(), endDate, false));
 			app.setScreen(new MenuScreen(app));
 		}
